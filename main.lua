@@ -18,6 +18,8 @@ require 'states/PlayState'
 require 'states/ScoreState'
 require 'states/CountdownState'
 require 'states/TitleScreenState'
+require 'states/PauseState'
+
 
 -- Window Size
 WINDOW_WIDTH = 800
@@ -38,8 +40,8 @@ local groundScroll = 0 -- To get the Parallax Scrolling.
 local GROUND_SCROLL_SPEED = 60 -- Ground moves faster than the background. 
 -- Ground does not need a Looping Point, it is consistent enough for getting the parallax effect.
 
--- Variable to pause the game when a collision happens.
-local scrolling = true
+-- Global Variable to pause the game.
+scrolling = true
 
 -- Load Function
 function love.load()
@@ -82,10 +84,10 @@ function love.load()
     -- Intialize the State Machine.
     gStateMachine = StateMachine{
         ['title'] = function() return TitleScreenState() end,
-        ['play'] = function() return PlayState() end,
-        ['score'] = function() return ScoreState() end,
         ['countdown'] = function() return CountdownState() end,
-        ['pause'] = function() return PauseState() end
+        ['play'] = function() return PlayState() end,
+        ['pause'] = function() return PauseState() end,
+        ['score'] = function() return ScoreState() end
 
     }
 
@@ -131,11 +133,9 @@ function love.update(dt)
 
         groundScroll = (groundScroll + GROUND_SCROLL_SPEED * dt) % VIRTUAL_WIDTH
 
-        gStateMachine:update(dt)
-        
-
     end
 
+    gStateMachine:update(dt)
     
     love.keyboard.keysPressed = {} -- Reinitialize the keysPressed Table.
 

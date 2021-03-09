@@ -15,7 +15,7 @@ function PlayState:init()
     self.pipePairs = {}
     self.timer = 0
     self.score = 0
-
+    self.paused = false
     -- initialize our last recorded Y value for a gap placement to base other gaps off of
     self.lastY = -PIPE_HEIGHT + math.random(80) + 20
 end
@@ -76,6 +76,9 @@ function PlayState:update(dt)
     end
 
     
+    if love.keyboard.wasPressed('p') then
+        gStateMachine:change('pause', self)
+    end
 
     -- simple collision between bird and all pipes
     for k, pair in pairs(self.pipePairs) do
@@ -120,8 +123,17 @@ end
 --[[
     Called when this state is transitioned to from another state.
 ]]
-function PlayState:enter()
-    -- if we're coming from death, restart scrolling
+function PlayState:enter(params)
+
+    if params.paused then
+        self.bird = params.bird
+        self.pipePairs = params.pipePairs
+        self.score = params.score
+        self.timer = params.timer
+        self.lastY = params.lastY
+        self.paused = false
+    end
+    -- if we're coming from death or pause, restart scrolling
     scrolling = true
 end
 
