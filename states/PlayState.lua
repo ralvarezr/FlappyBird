@@ -7,6 +7,9 @@ PIPE_HEIGHT = 430
 BIRD_WIDTH = 38
 BIRD_HEIGHT = 24
 
+-- First pair of pipes spawn after 2 seconds.
+local WAIT_TIME = 2
+
 function PlayState:init()
     self.bird = Bird()
     self.pipePairs = {}
@@ -18,8 +21,8 @@ function PlayState:init()
 end
 
 function PlayState:update(dt)
-    -- spawn a new pipe pair every second and a half
-    if self.timer > 2 then
+    -- spawn a new pipe pair
+    if self.timer > WAIT_TIME then
         -- modify the last Y coordinate we placed so pipe gaps aren't too far apart
         local y = math.max(-PIPE_HEIGHT + 10, math.min(self.lastY + math.random(-20, 20), PIPE_HEIGHT / 3))
 
@@ -34,6 +37,9 @@ function PlayState:update(dt)
 
         -- reset timer
         self.timer = 0
+
+        -- Randomize the time to spawn a new pair of pipes.
+        WAIT_TIME = math.random(1.5, 2)
     end
 
     for k, pair in pairs(self.pipePairs) do
@@ -69,6 +75,7 @@ function PlayState:update(dt)
         gStateMachine:change('title')
     end
 
+    
 
     -- simple collision between bird and all pipes
     for k, pair in pairs(self.pipePairs) do

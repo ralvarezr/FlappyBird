@@ -39,7 +39,7 @@ local GROUND_SCROLL_SPEED = 60 -- Ground moves faster than the background.
 -- Ground does not need a Looping Point, it is consistent enough for getting the parallax effect.
 
 -- Variable to pause the game when a collision happens.
-scrolling = true
+local scrolling = true
 
 -- Load Function
 function love.load()
@@ -106,13 +106,13 @@ function love.keypressed(key)
 
     love.keyboard.keysPressed[key] = true -- Store the key pressed and set it to true.
 
-    if key == 'escape' then     -- Close the windows if esc was pressed.
+    if key == 'escape' then     -- Close the window if esc was pressed.
         love.event.quit()
     end
 
 end
 
--- Cheks if a key was pressed. It can be used for any file outside of the main file.
+-- Checks if a key was pressed. It can be used by any file outside of the main file.
 function love.keyboard.wasPressed(key)
 
     if love.keyboard.keysPressed[key] then
