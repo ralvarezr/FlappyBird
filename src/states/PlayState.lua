@@ -141,6 +141,6 @@ end
     Called when this state changes to another state.
 ]]
 function PlayState:exit()
-    -- stop scrolling for the death/score screen
+    -- stop scrolling for the death/score/pause screen
     scrolling = false
 end

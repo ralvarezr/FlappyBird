@@ -1,24 +1,5 @@
--- Include the Push Library
-push = require 'push'
-
--- Include the Class Library
-Class = require 'class'
-
-
--- Include the Bird Class
-require 'Bird'
-
--- Include the Pipe Class
-require 'Pipe'
-
--- Include the Libraries related to the Game State and State Machines.
-require 'StateMachine'
-require 'states/BaseState'
-require 'states/PlayState'
-require 'states/ScoreState'
-require 'states/CountdownState'
-require 'states/TitleScreenState'
-require 'states/PauseState'
+-- Include libraries and source files.
+require 'src/Dependencies'
 
 
 -- Window Size
